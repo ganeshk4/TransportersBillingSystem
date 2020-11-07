@@ -80,9 +80,6 @@ function Profile() {
             <TextField id="bankname" label="Bank Name" />
           </FormControl>
           <FormControl fullWidth>
-            <TextField id="bankname" label="Bank Name" />
-          </FormControl>
-          <FormControl fullWidth>
             <TextField id="bankacno" label="Bank A/C No." />
           </FormControl>
           <FormControl fullWidth>
