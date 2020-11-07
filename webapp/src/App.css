@@ -1,0 +1,25 @@
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.base-box {
+  background-color: #fff;
+  height: calc(100% - 2rem);
+}
+
+.scrollable-details {
+  max-height: calc(100% - 3rem);
+  overflow: auto;
+}
+
+.typo-with_btn {
+  display: flex;
+  align-items: center;
+}

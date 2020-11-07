@@ -1,0 +1,23 @@
+#root {
+  display: flex;
+}
+
+.page-nav, .page-content {
+  height: 100%;
+}
+
+.page-nav {
+  width: 20%;
+}
+
+.page-content {
+  width: 80%;
+}
+
+.page-nav .MuiAppBar-root {
+  height: 100%;
+}
+.page-nav .MuiAppBar-root .MuiButtonBase-root {
+  width: 100%;
+  max-width: 100%;
+}

@@ -1,0 +1,25 @@
+{
+  "name": "tbs",
+  "version": "1.0.0",
+  "description": "Transporter's billing system",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ganeshk4/TransportersBillingSystem.git"
+  },
+  "author": "github.com/ganeshk4",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ganeshk4/TransportersBillingSystem/issues"
+  },
+  "homepage": "https://github.com/ganeshk4/TransportersBillingSystem#readme",
+  "dependencies": {
+    "mysql2": "^2.2.5",
+    "react-router-dom": "^5.2.0",
+    "sequelize": "^6.3.5",
+    "sequelize-cli": "^6.2.0"
+  }
+}
