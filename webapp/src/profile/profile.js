@@ -1,12 +1,10 @@
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
-import useStyles from '../classes';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import SaveIcon from '@material-ui/icons/Save';
 import { Box, FormControl, IconButton, TextField, Tooltip } from '@material-ui/core';
 
 function Profile() {
-  const classes = useStyles();
   return (
     <Box className="base-box" p={2} mx={2} elevation={1}>
       <Typography variant="h5" component="h3" style={{

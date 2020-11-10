@@ -2,9 +2,15 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
+import Select from '@material-ui/core/Select';
 import SaveIcon from '@material-ui/icons/Save';
 import Accordion from '@material-ui/core/Accordion';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
+import {
+  KeyboardDatePicker
+} from '@material-ui/pickers';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Box, FormControl, IconButton, TextField, Tooltip } from '@material-ui/core';
@@ -203,39 +209,36 @@ class Parties extends React.Component {
   render() {
     return (
       <Box className="base-box" p={2} mx={2} elevation={1}>
-        <Typography variant="h5" component="h3" className='typo-with_btn'>
+        <Typography variant="h5" component="h3" className="typo-with_btn">
           Parties &nbsp;&nbsp;&nbsp;
           <Tooltip title="Add New Party" aria-label="add">
             <IconButton onClick={() => this.addNewClick()} aria-label="add">
               <AddCircleIcon title="Add New Party" color="primary">
                 Add
-                  </AddCircleIcon>
+              </AddCircleIcon>
             </IconButton>
           </Tooltip>
         </Typography>
         <Divider />
         <div className="scrollable-details">
           <Accordion expanded={this.state.expandedParent === 'parties'} onChange={() => this.handleChangeP('parties')}>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1bh-content"
-              id="panel1bh-header"
-            >
-              <Typography variant="h6" component="h6">Party List</Typography>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel1bh-header">
+              <Typography variant="h6" component="h6">
+                Party List
+              </Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <Box style={{ width: '100%' }}>
-
-              </Box>
+              <Box style={{ width: '100%' }}></Box>
             </AccordionDetails>
           </Accordion>
-          <Accordion hidden={!this.state.showAddNew} expanded={this.state.expandedParent === 'addnew'} onChange={() => this.handleChangeP('addnew')}>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1bh-content"
-              id="panel1bh-header"
-            >
-              <Typography className='typo-with_btn' variant="h6" component="h6">Add New&nbsp;&nbsp;&nbsp;
+          <Accordion
+            hidden={!this.state.showAddNew}
+            expanded={this.state.expandedParent === 'addnew'}
+            onChange={() => this.handleChangeP('addnew')}
+          >
+            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel1bh-header">
+              <Typography className="typo-with_btn" variant="h6" component="h6">
+                Add New&nbsp;&nbsp;&nbsp;
                 <Tooltip title="Save" aria-label="save">
                   <IconButton onClick={() => this.saveNew()} aria-label="save">
                     <SaveIcon title="Save" color="primary">
@@ -248,56 +251,89 @@ class Parties extends React.Component {
             <AccordionDetails>
               <Box style={{ width: '100%' }}>
                 <Accordion expanded={this.state.expandedChild === 'panel1'} onChange={() => this.handleChangeC('panel1')}>
-                  <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel1bh-content"
-                    id="panel1bh-header"
-                  >
-                    <Typography variant="h6" component="h6">Your details</Typography>
+                  <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel1bh-header">
+                    <Typography variant="h6" component="h6">
+                      Your details
+                    </Typography>
                   </AccordionSummary>
                   <AccordionDetails>
                     <Box style={{ width: '100%' }}>
                       <FormControl fullWidth>
-                        <TextField value={this.state.partyConfig.yourDetails.gstin} onChange={(event) => this.yourDetailsChange(event, 'gstin')} id="gstin" label="GSTIN" />
+                        <TextField
+                          value={this.state.partyConfig.yourDetails.gstin}
+                          onChange={(event) => this.yourDetailsChange(event, 'gstin')}
+                          id="gstin"
+                          label="GSTIN"
+                        />
                       </FormControl>
                       <FormControl fullWidth>
-                        <TextField value={this.state.partyConfig.yourDetails.place} onChange={(event) => this.yourDetailsChange(event, 'place')} id="place" label="Place of supply state" />
+                        <TextField
+                          value={this.state.partyConfig.yourDetails.place}
+                          onChange={(event) => this.yourDetailsChange(event, 'place')}
+                          id="place"
+                          label="Place of supply state"
+                        />
                       </FormControl>
                       <FormControl fullWidth>
-                        <TextField value={this.state.partyConfig.yourDetails.invoice_code} onChange={(event) => this.yourDetailsChange(event, 'invoice_code')}id="invoicecode" label="Invoice code" />
+                      <InputLabel id="select-invoice-code">Select invoice code</InputLabel>
+                        <Select labelId="select-invoice-code" id="select-invoice">
+                          <MenuItem value={10}>Ten</MenuItem>
+                          <MenuItem value={20}>Twenty</MenuItem>
+                          <MenuItem value={30}>Thirty</MenuItem>
+                        </Select>
                       </FormControl>
+                      {/* <FormControl fullWidth>
+                        <TextField
+                          value={this.state.partyConfig.yourDetails.invoice_code}
+                          onChange={(event) => this.yourDetailsChange(event, 'invoice_code')}
+                          id="invoicecode"
+                          label="Invoice code"
+                        />
+                      </FormControl> */}
                     </Box>
                   </AccordionDetails>
                 </Accordion>
                 <Accordion expanded={this.state.expandedChild === 'panel2'} onChange={() => this.handleChangeC('panel2')}>
-                  <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel1bh-content"
-                    id="panel1bh-header"
-                  >
-                    <Typography variant="h6" component="h6">Party details</Typography>
+                  <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel1bh-header">
+                    <Typography variant="h6" component="h6">
+                      Party details
+                    </Typography>
                   </AccordionSummary>
                   <AccordionDetails>
                     <Box style={{ width: '100%' }}>
                       <FormControl fullWidth>
-                        <TextField value={this.state.partyConfig.partyDetails.name} onChange={(event) => this.partyDetailsChange(event, 'name')} id="name" label="Party Name" />
+                        <TextField
+                          value={this.state.partyConfig.partyDetails.name}
+                          onChange={(event) => this.partyDetailsChange(event, 'name')}
+                          id="name"
+                          label="Party Name"
+                        />
                       </FormControl>
                       <FormControl fullWidth>
-                        <TextField value={this.state.partyConfig.partyDetails.address} onChange={(event) => this.partyDetailsChange(event, 'address')} id="billingadd" label="Billing address" />
+                        <TextField
+                          value={this.state.partyConfig.partyDetails.address}
+                          onChange={(event) => this.partyDetailsChange(event, 'address')}
+                          id="billingadd"
+                          label="Billing address"
+                        />
                       </FormControl>
                       <FormControl fullWidth>
-                        <TextField value={this.state.partyConfig.partyDetails.gstin} onChange={(event) => this.partyDetailsChange(event, 'gstin')} id="gstuniq" label="GSTIN / Unique Id" />
+                        <TextField
+                          value={this.state.partyConfig.partyDetails.gstin}
+                          onChange={(event) => this.partyDetailsChange(event, 'gstin')}
+                          id="gstuniq"
+                          label="GSTIN / Unique Id"
+                        />
                       </FormControl>
                     </Box>
                   </AccordionDetails>
                 </Accordion>
                 <Accordion expanded={this.state.expandedChild === 'panel3'} onChange={() => this.handleChangeC('panel3')}>
-                  <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel1bh-content"
-                    id="panel1bh-header"
-                  >
-                    <Typography variant="h6" className='typo-with_btn' component="h6">Contract details</Typography>&nbsp;&nbsp;&nbsp;
+                  <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel1bh-header">
+                    <Typography variant="h6" className="typo-with_btn" component="h6">
+                      Contract details
+                    </Typography>
+                    &nbsp;&nbsp;&nbsp;
                     <Tooltip title="Add New Contract" aria-label="add">
                       <IconButton aria-label="add">
                         <AddCircleIcon title="Add" color="primary">
@@ -309,37 +345,74 @@ class Parties extends React.Component {
                   <AccordionDetails>
                     <Box style={{ width: '100%' }}>
                       <FormControl fullWidth>
-                        <TextField value={this.state.partyConfig.allCriteria.kilometerCriteria.km} onChange={(event) => this.updateKilometerCriteria(event, 'km')} label='Contract Kilometers' />
+                        <KeyboardDatePicker
+                          views={["year", "month"]}
+                          format="MMM/YYYY"
+                          id="date-picker-dialog"
+                          label="Contract Start Date"
+                          KeyboardButtonProps={{
+                            'aria-label': 'change date',
+                          }}
+                        />
                       </FormControl>
                       <FormControl fullWidth>
-                        <TextField value={this.state.partyConfig.allCriteria.kilometerCriteria.rate} onChange={(event) => this.updateKilometerCriteria(event, 'rate')} label='Base Rate' />
+                        <TextField
+                          value={this.state.partyConfig.allCriteria.kilometerCriteria.km}
+                          onChange={(event) => this.updateKilometerCriteria(event, 'km')}
+                          label="Contract Kilometers"
+                        />
                       </FormControl>
                       <FormControl fullWidth>
-                        <TextField value={this.state.partyConfig.allCriteria.gstCriteria.sgst} onChange={(event) => this.updateGstCriteria(event, 'sgst')} label='S.GST' />
+                        <TextField
+                          value={this.state.partyConfig.allCriteria.kilometerCriteria.rate}
+                          onChange={(event) => this.updateKilometerCriteria(event, 'rate')}
+                          label="Base Rate"
+                        />
                       </FormControl>
                       <FormControl fullWidth>
-                        <TextField value={this.state.partyConfig.allCriteria.gstCriteria.igst} onChange={(event) => this.updateGstCriteria(event, 'igst')} label='I.GST' />
+                        <TextField
+                          value={this.state.partyConfig.allCriteria.gstCriteria.sgst}
+                          onChange={(event) => this.updateGstCriteria(event, 'sgst')}
+                          label="S.GST"
+                        />
                       </FormControl>
                       <FormControl fullWidth>
-                        <TextField value={this.state.partyConfig.allCriteria.gstCriteria.cgst} onChange={(event) => this.updateGstCriteria(event, 'cgst')} label='C.GST' />
+                        <TextField
+                          value={this.state.partyConfig.allCriteria.gstCriteria.igst}
+                          onChange={(event) => this.updateGstCriteria(event, 'igst')}
+                          label="I.GST"
+                        />
                       </FormControl>
-                      {
-                        this.state.partyConfig.allCriteria.contractCriteria.map((criteria) => {
-                          const key1 = criteria.key+'r';
-                          const key2 = criteria.key+'u';
-                          return (
-                            <div key={criteria.key}>
-                              <Typography style={{ marginTop: '2rem'}}>{criteria.text}</Typography>
+                      <FormControl fullWidth>
+                        <TextField
+                          value={this.state.partyConfig.allCriteria.gstCriteria.cgst}
+                          onChange={(event) => this.updateGstCriteria(event, 'cgst')}
+                          label="C.GST"
+                        />
+                      </FormControl>
+                      {this.state.partyConfig.allCriteria.contractCriteria.map((criteria) => {
+                        const key1 = criteria.key + 'r';
+                        const key2 = criteria.key + 'u';
+                        return (
+                          <div key={criteria.key}>
+                            <Typography style={{ marginTop: '2rem' }}>{criteria.text}</Typography>
                             <FormControl key={key1} fullWidth>
-                              <TextField value={this.state.partyConfig.allCriteria.contractCriteria[criteria.key].rate} onChange={(event) => this.updateContractCriteria(event, criteria.key, 'rate')} label='Rate' />
+                              <TextField
+                                value={this.state.partyConfig.allCriteria.contractCriteria[criteria.key].rate}
+                                onChange={(event) => this.updateContractCriteria(event, criteria.key, 'rate')}
+                                label="Rate"
+                              />
                             </FormControl>
                             <FormControl key={key2}>
-                              <TextField value={this.state.partyConfig.allCriteria.contractCriteria[criteria.key].uom} onChange={(event) => this.updateContractCriteria(event, criteria.key, 'uom')} label='UOM' />
+                              <TextField
+                                value={this.state.partyConfig.allCriteria.contractCriteria[criteria.key].uom}
+                                onChange={(event) => this.updateContractCriteria(event, criteria.key, 'uom')}
+                                label="UOM"
+                              />
                             </FormControl>
-                            </div>
-                          )
-                        })
-                      }
+                          </div>
+                        );
+                      })}
                     </Box>
                   </AccordionDetails>
                 </Accordion>
