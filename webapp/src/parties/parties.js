@@ -258,14 +258,23 @@ class Parties extends React.Component {
                   </AccordionSummary>
                   <AccordionDetails>
                     <Box style={{ width: '100%' }}>
-                      <FormControl fullWidth>
+                    <FormControl fullWidth>
+                      <InputLabel id="select-gst-head-label">Select your GST Head</InputLabel>
+                        <Select value={this.state.partyConfig.yourDetails.gstin}
+                          onChange={(event) => this.yourDetailsChange(event, 'gstin')} labelId="select-gst-head-label" id="select-gst-head">
+                          <MenuItem value={10}>Ten</MenuItem>
+                          <MenuItem value={20}>Twenty</MenuItem>
+                          <MenuItem value={30}>Thirty</MenuItem>
+                        </Select>
+                      </FormControl>
+                      {/* <FormControl fullWidth>
                         <TextField
                           value={this.state.partyConfig.yourDetails.gstin}
                           onChange={(event) => this.yourDetailsChange(event, 'gstin')}
                           id="gstin"
                           label="GSTIN"
                         />
-                      </FormControl>
+                      </FormControl> */}
                       <FormControl fullWidth>
                         <TextField
                           value={this.state.partyConfig.yourDetails.place}

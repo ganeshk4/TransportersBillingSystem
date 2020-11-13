@@ -24,6 +24,12 @@
   align-items: center;
 }
 
+.typo-wo-btn {
+  height: 3rem;
+  display: flex;
+  align-items: center;
+}
+
 .align_btn_right {
   padding-top: 1rem;
   display: flex;

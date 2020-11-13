@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     party_name: DataTypes.STRING,
     billing_address: DataTypes.STRING,
     party_gstin: DataTypes.STRING,
-    contract_startdate: DataTypes.DATETIME,
+    contract_startdate: DataTypes.DATE,
     contract_kms: DataTypes.INTEGER,
     contract_rate: DataTypes.FLOAT,
     contract_sgst: DataTypes.INTEGER,

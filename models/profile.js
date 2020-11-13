@@ -1,10 +1,10 @@
 module.exports = (sequelize, DataTypes) => {
   const Profile = sequelize.define('transporter', {
-    name: DataTypes.TEXT,
-    title: DataTypes.TEXT,
-    address: DataTypes.TEXT,
-    telephone_and_email: DataTypes.TEXT,
-    hsn: DataTypes.TEXT
+    name: DataTypes.STRING,
+    title: DataTypes.STRING,
+    address: DataTypes.STRING,
+    telephone_and_email: DataTypes.STRING,
+    hsn: DataTypes.STRING
   }, {
     freezeTableName: true,
   });

@@ -15,6 +15,8 @@ import LogBook from '../logbook/logbook'
 import Parties from '../parties/parties';
 import Bills from '../bills/bills';
 import Profile from '../profile/profile';
+import GstHead from '../gsthead/gsthead';
+import InvoiceCode from '../invoicecode/invoicecode';
 
 import './wrapper-page.css';
 
@@ -30,13 +32,15 @@ function WrapperPage() {
         <Tabs
           orientation="vertical"
           variant="scrollable"
-          value="logbook"
+          value="gsthead"
           onChange={handleChange}
           aria-label="nav tabs example"
         >
-          <Tab value="logbook" label="Log Book" to="/logbook" component={Link}  />
-          <Tab value="add-party" label="Parties" to="/parties" component={Link} />
+          <Tab value="gsthead" label="GST Head" to="/gsthead" component={Link}  />
+          <Tab value="invoicecode" label="Invoice Code" to="/invoicecode" component={Link}  />
           <Tab value="profile" label="Profile" to="/profile" component={Link} />
+          <Tab value="add-party" label="Parties" to="/parties" component={Link} />
+          <Tab value="logbook" label="Log Book" to="/logbook" component={Link}  />
           <Tab value="bills" label="Generate Bills" to="/bills" component={Link} />
         </Tabs>
       </AppBar>
@@ -44,6 +48,12 @@ function WrapperPage() {
       </Paper>
       <div className='page-content'> 
         <Switch>
+          <Route path="/gsthead">
+            <GstHead></GstHead>
+          </Route>
+          <Route path="/invoicecode">
+            <InvoiceCode></InvoiceCode>
+          </Route>
           <Route path="/logbook">
             <LogBook></LogBook>
           </Route>
