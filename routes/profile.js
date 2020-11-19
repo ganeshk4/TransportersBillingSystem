@@ -1,9 +1,13 @@
 let express = require('express');
 let router = express.Router();
+let profileController = require('../controllers/profile'); 
 
 router.get('/', (req, res) => {
-  res.status(200);
-  res.json({'status': '200', 'success': true });
+  profileController.get(req, res);
+});
+
+router.post('/', (req, res) => {
+  profileController.post(req, res);
 });
 
 module.exports = router;

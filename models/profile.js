@@ -9,5 +9,10 @@ module.exports = (sequelize, DataTypes) => {
     freezeTableName: true,
   });
   
+  Profile.associate = function(models) {
+    Profile.hasMany(models.bank_details, {
+      foreignKey: 'userId'
+    });
+  }
   return Profile;
 };

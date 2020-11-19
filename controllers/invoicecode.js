@@ -10,19 +10,24 @@ let invoiceCodeController = () => {
   const get = async function (req, res) {
     const records = await getAllRecords();
     res.status(200);
-    res.json(records);
+    res.json({data: records});
   }
 
-  const post = function (req, res) {
+  const post = async function (req, res) {
     let body = req.body;
     return model
       .create({
         invoicecode: body.code
       })
+      .catch(async (err) => {
+        const records = await getAllRecords();
+        res.status(500);
+        res.json({error: err, data: records});
+      })
       .then(async () => {
         const records = await getAllRecords();
         res.status(200);
-        res.json(records);
+        res.json({data: records});
       });
   }
   return { get, post };

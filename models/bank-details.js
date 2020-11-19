@@ -8,6 +8,12 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     freezeTableName: true,
   });
+
+  Bank.associate = function(models) {
+    Bank.belongsTo(models.transporter, {
+      foreignKey: 'userId'
+    });
+  }
   
   return Bank;
 };
