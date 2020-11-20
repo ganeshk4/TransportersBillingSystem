@@ -33,17 +33,11 @@ class Profile extends React.Component {
     this.getProfileDetails();
   }
 
-  getProfileDetails() {
-    fetch('http://localhost:5000/api/profile', {
-      method: 'GET',
-      mode: 'cors',
-      headers: {
-        "Content-Type": "application/json"
+  createView(data) {
+    const banks = [];
+      if (!data) {
+        data = {bank_details: []}
       }
-    })
-    .then((res) => res.json())
-    .then((data) => {
-      const banks = [];
       for (let i = 0; i < data.bank_details.length; i++) {
         banks.push({
           acName: data.bank_details[i].ac_name,
@@ -72,7 +66,19 @@ class Profile extends React.Component {
           branch: '',
         }
       });
-      console.log(this.state);
+  }
+
+  getProfileDetails() {
+    fetch('http://localhost:5000/api/profile', {
+      method: 'GET',
+      mode: 'cors',
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    .then((res) => res.json())
+    .then((data) => {
+      this.createView(data);
     });
   }
 
@@ -87,10 +93,7 @@ class Profile extends React.Component {
     })
     .then((res) => res.json())
     .then((data) => {
-      // this.setState({
-      //   ...this.state,
-      //   records: data.data
-      // });
+      this.createView(data);
     });
   }
   
