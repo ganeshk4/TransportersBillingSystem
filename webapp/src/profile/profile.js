@@ -177,16 +177,7 @@ class Profile extends React.Component {
               component="h6"
             >
               <span>Bank A/C Details</span>
-              &nbsp;&nbsp;&nbsp;
-              <Tooltip title="Add" aria-label="add">
-                <IconButton aria-label="add">
-                  <AddCircleIcon title="Add" color="primary">
-                    Add
-                  </AddCircleIcon>
-                </IconButton>
-              </Tooltip>
             </Typography>
-
               {
                 this.state.banks.map((bank, index) => (
                   <Box key={index} p={2} border={1} borderColor="grey.500" borderRadius={2} m={2}>
@@ -196,7 +187,6 @@ class Profile extends React.Component {
                   </Box>
                 ))
               }
-            
             <FormControl fullWidth>
               <TextField id="acname"
               value={this.state.newBank.acName}

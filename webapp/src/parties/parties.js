@@ -14,6 +14,7 @@ import {
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Box, FormControl, IconButton, TextField, Tooltip } from '@material-ui/core';
+import moment from 'moment';
 
 class Parties extends React.Component {
   //[expanded, setExpanded] = React.useState(false);
@@ -101,14 +102,50 @@ class Parties extends React.Component {
   }
 
   allCriteria = {
+    contractStartDate: new Date(),
     contractCriteria: this.contractCriteria,
     kilometerCriteria: this.kilometerCriteria,
     gstCriteria: this.gstCriteria
   };
 
+  getGstHeads() {
+    fetch('http://localhost:5000/api/gsthead', {
+      method: 'GET',
+      mode: 'cors',
+    })
+    .then((res) => res.json())
+    .then((data) => {
+      this.setState({
+        ...this.state,
+        gstHeads: data.data
+      });
+    });
+  }
+
+  getInvoiceCodes() {
+    fetch('http://localhost:5000/api/invoicecode', {
+      method: 'GET',
+      mode: 'cors',
+    })
+    .then((res) => res.json())
+    .then((data) => {
+      this.setState({
+        ...this.state,
+        invoiceCodes: data.data
+      });
+    });
+  }
+
+  componentDidMount() {
+    this.getGstHeads();
+    this.getInvoiceCodes();
+  }
+
   constructor() {
     super();
     this.state = {
+      invoiceCodes: [],
+      gstHeads: [],
       partyConfig: {
         yourDetails: this.yourDetails,
         partyDetails: this.partyDetails,
@@ -202,6 +239,18 @@ class Parties extends React.Component {
     });
   }
 
+  updateContractDate(event) {
+    //console.log(moment(event).date());
+    const partyConfig = this.state.partyConfig;
+    partyConfig.allCriteria.contractStartDate = event;
+    this.setState({
+      partyConfig: partyConfig,
+      expandedParent: this.state.expandedParent,
+      expandedChild: this.state.expandedChild,
+      showAddNew: this.state.showAddNew
+    });
+  }
+
   saveNew() {
     console.log(this.state);
   }
@@ -262,9 +311,11 @@ class Parties extends React.Component {
                       <InputLabel id="select-gst-head-label">Select your GST Head</InputLabel>
                         <Select value={this.state.partyConfig.yourDetails.gstin}
                           onChange={(event) => this.yourDetailsChange(event, 'gstin')} labelId="select-gst-head-label" id="select-gst-head">
-                          <MenuItem value={10}>Ten</MenuItem>
-                          <MenuItem value={20}>Twenty</MenuItem>
-                          <MenuItem value={30}>Thirty</MenuItem>
+                          {
+                            this.state.gstHeads.map((gsthead) => (
+                              <MenuItem value={gsthead.id}>{gsthead.gsthead}</MenuItem>    
+                            ))
+                          }
                         </Select>
                       </FormControl>
                       {/* <FormControl fullWidth>
@@ -285,10 +336,15 @@ class Parties extends React.Component {
                       </FormControl>
                       <FormControl fullWidth>
                       <InputLabel id="select-invoice-code">Select invoice code</InputLabel>
-                        <Select labelId="select-invoice-code" id="select-invoice">
-                          <MenuItem value={10}>Ten</MenuItem>
-                          <MenuItem value={20}>Twenty</MenuItem>
-                          <MenuItem value={30}>Thirty</MenuItem>
+                        <Select labelId="select-invoice-code"
+                        value={this.state.partyConfig.yourDetails.invoice_code}
+                        onChange={(event) => this.yourDetailsChange(event, 'invoice_code')}
+                        id="select-invoice">
+                        {
+                            this.state.invoiceCodes.map((codes) => (
+                              <MenuItem value={codes.id}>{codes.invoicecode}</MenuItem>    
+                            ))
+                          }
                         </Select>
                       </FormControl>
                       {/* <FormControl fullWidth>
@@ -358,6 +414,8 @@ class Parties extends React.Component {
                           views={["year", "month"]}
                           format="MMM/YYYY"
                           id="date-picker-dialog"
+                          value={this.state.partyConfig.allCriteria.contractStartDate}
+                          onChange={(event) => this.updateContractDate(event)}
                           label="Contract Start Date"
                           KeyboardButtonProps={{
                             'aria-label': 'change date',

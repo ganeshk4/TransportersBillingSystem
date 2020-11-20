@@ -8,5 +8,10 @@ module.exports = (sequelize, DataTypes) => {
     freezeTableName: true,
   });
   
+  gstHead.associate = function(models) {
+    gstHead.hasMany(models.party, {
+      foreignKey: 'gstheadId'
+    });
+  }
   return gstHead;
 };

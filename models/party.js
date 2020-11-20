@@ -1,6 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
   const Party = sequelize.define('party', {
-    transporter_gstin: DataTypes.STRING,
     place_of_supply_state: DataTypes.STRING,
     party_name: DataTypes.STRING,
     billing_address: DataTypes.STRING,
@@ -15,6 +14,16 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     freezeTableName: true,
   });
+
+  Party.associate = function(models) {
+    Party.belongsTo(models.gsthead, {
+      foreignKey: 'gstheadId'
+    });
+
+    Party.belongsTo(models.invoicecode, {
+      foreignKey: 'invoicecodeId'
+    });
+  }
   
   return Party;
 };

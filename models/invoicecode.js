@@ -7,6 +7,12 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     freezeTableName: true,
   });
+
+  Code.associate = function(models) {
+    Code.hasMany(models.party, {
+      foreignKey: 'invoicecodeId'
+    });
+  }
   
   return Code;
 };
