@@ -16,6 +16,10 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Party.associate = function(models) {
+    Party.belongsTo(models.transporter, {
+      foreignKey: 'profileId'
+    });
+
     Party.belongsTo(models.gsthead, {
       foreignKey: 'gstheadId'
     });

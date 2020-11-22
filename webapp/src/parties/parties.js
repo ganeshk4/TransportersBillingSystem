@@ -136,15 +136,31 @@ class Parties extends React.Component {
     });
   }
 
+  getParties() {
+    fetch('http://localhost:5000/api/party', {
+      method: 'GET',
+      mode: 'cors',
+    })
+    .then((res) => res.json())
+    .then((data) => {
+      this.setState({
+        ...this.state,
+        allParties: data.data
+      });
+    });
+  }
+
   componentDidMount() {
     this.getGstHeads();
     this.getInvoiceCodes();
+    this.getParties();
   }
 
   constructor() {
     super();
     this.state = {
       invoiceCodes: [],
+      allParties: [],
       gstHeads: [],
       partyConfig: {
         yourDetails: this.yourDetails,
@@ -252,7 +268,21 @@ class Parties extends React.Component {
   }
 
   saveNew() {
-    console.log(this.state);
+    fetch('http://localhost:5000/api/party', {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({...this.state.partyConfig})
+    })
+    .then((res) => res.json())
+    .then((data) => {
+      this.setState({
+        ...this.state,
+        invoiceCodes: data.data
+      });
+    });
   }
 
   render() {
@@ -277,7 +307,18 @@ class Parties extends React.Component {
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <Box style={{ width: '100%' }}></Box>
+              <div>
+                {
+                  this.state.allParties.map((party) => (
+                    <Box key={party.id} p={2} border={1} borderColor="grey.500" borderRadius={2} m={2}>
+                      <div>{party.party_name}, {party.place_of_supply_state}</div>
+                      <div style={{fontSize:'12px'}}>{party.billing_address}</div>
+                      <div style={{fontSize:'12px'}}>Contract Start Date: {moment(party.contract_startdate).format('MMM YYYY')} Party GSTIN: {party.party_gstin} Kilometers: {party.contract_kms} Rate: {party.contract_rate}</div>
+                      <div style={{fontSize:'12px'}}>CGST: {party.contract_cgst} SGST: {party.contract_sgst} IGST: {party.contract_igst}</div>
+                    </Box>
+                  ))
+                }
+                </div>
             </AccordionDetails>
           </Accordion>
           <Accordion
@@ -313,7 +354,7 @@ class Parties extends React.Component {
                           onChange={(event) => this.yourDetailsChange(event, 'gstin')} labelId="select-gst-head-label" id="select-gst-head">
                           {
                             this.state.gstHeads.map((gsthead) => (
-                              <MenuItem value={gsthead.id}>{gsthead.gsthead}</MenuItem>    
+                              <MenuItem key={gsthead.id} value={gsthead.id}>{gsthead.gsthead}</MenuItem>    
                             ))
                           }
                         </Select>
@@ -340,9 +381,9 @@ class Parties extends React.Component {
                         value={this.state.partyConfig.yourDetails.invoice_code}
                         onChange={(event) => this.yourDetailsChange(event, 'invoice_code')}
                         id="select-invoice">
-                        {
+                          {
                             this.state.invoiceCodes.map((codes) => (
-                              <MenuItem value={codes.id}>{codes.invoicecode}</MenuItem>    
+                              <MenuItem key={codes.id} value={codes.id}>{codes.invoicecode}</MenuItem>    
                             ))
                           }
                         </Select>

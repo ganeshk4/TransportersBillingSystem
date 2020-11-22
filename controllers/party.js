@@ -20,6 +20,7 @@ let partyController = () => {
     let allCriteria = body.allCriteria;
     return model
       .create({
+        profileId: 1,
         gstheadId: transporterDetails.gstin,
         invoicecodeId: transporterDetails.invoice_code,
         place_of_supply_state: transporterDetails.place,
@@ -32,15 +33,15 @@ let partyController = () => {
         contract_sgst: allCriteria.gstCriteria.sgst,
         contract_cgst: allCriteria.gstCriteria.cgst,
         contract_igst: allCriteria.gstCriteria.igst,
-        contract_json: allCriteria.contractCriteria
+        contract_json: JSON.stringify(allCriteria.contractCriteria)
       })
-      .catch(async (err) => {
-        const records = await getAllRecords();
-        res.status(500);
-        res.json({error: err, data: records});
-      })
+      // .catch(async (err) => {
+      //   const records = await getAllRecords();
+      //   res.status(500);
+      //   res.json({error: err, data: records});
+      // })
       .then(async () => {
-        const records = await getAllRecords();
+        const records = await getAllParties();
         res.status(200);
         res.json({data: records});
       });

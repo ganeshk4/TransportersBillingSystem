@@ -13,6 +13,10 @@ module.exports = (sequelize, DataTypes) => {
     Profile.hasMany(models.bank_details, {
       foreignKey: 'userId'
     });
+
+    Profile.hasMany(models.party, {
+      foreignKey: 'profileId'
+    });
   }
   return Profile;
 };

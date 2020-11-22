@@ -8,6 +8,6 @@ let partyApi = require('./party');
 router.use('/profile',profileApi);
 router.use('/gsthead',gstHeadApi);
 router.use('/invoicecode',invoiceCodeApi);
-router.use('/partyApi',partyApi);
+router.use('/party',partyApi);
 
 module.exports = router;
